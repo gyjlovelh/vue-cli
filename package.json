@@ -1,0 +1,25 @@
+{
+  "name": "@jx-common/cli",
+  "version": "1.0.0",
+  "description": "vue cli",
+  "main": "/bin/jx.js",
+  "bin": {
+    "jx": "./bin/jx.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "guanyj",
+  "license": "ISC",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "fs-extra": "^8.0.1",
+    "inquirer": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/fs-extra": "^7.0.0"
+  }
+}

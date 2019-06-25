@@ -1,0 +1,30 @@
+<template>
+  <div id="app">
+    <p>this is {{name}}</p>
+
+    {{each demos}}{{set item = $value}}
+        <button @click="onClick({{item.name}})">{{item.name}}</button>
+    {{/each}}
+
+    {{each demos}}{{set item = $value}}
+        <{{item.component}}></{{item.component}}>
+     {{/each}}
+  </div>
+</template>
+
+<script>
+{{each demos}}{{set item = $value}}
+import {{item.component}} from './components/{{item.name}}/{{item.name}}'
+{{/each}}
+
+export default {
+  name: 'app',
+  components: {
+    {{each demos}}{{set item = $value}}
+        {{item.component}}: {{item.component}},
+    {{/each}}
+  }
+}
+</script>
+
+<style></style>

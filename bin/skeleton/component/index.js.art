@@ -1,0 +1,14 @@
+import {{module.componentName}} from './src/{{module.name}}.component.vue';
+
+const components = {
+    '{{module.prefix}}-{{module.name}}': {{module.componentName}}
+};
+
+const install = function (Vue) {
+    // 注册全局组件
+    Object.keys(components).forEach(key => {
+        Vue.component(key, components[key]);
+    });
+};
+
+export default install;

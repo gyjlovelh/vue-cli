@@ -1,0 +1,21 @@
+{
+    "name": "waf-application-framework",
+    "prefix": "waf",
+    "version": "1.0.0",
+    "runtimeDir": "/Users/guanyj/workspace/rt",
+    "distDir": "",
+    "component": [
+        "grid"
+    ],
+    "module": [
+        "nav"
+    ],
+    "service": [
+        "context"
+    ],
+    "sourceCodePath": "/Users/guanyj/workspace/application",
+    "componentPkgName": "@waf-component",
+    "modulePkgName": "@waf-module",
+    "servicePkgName": "@waf-service",
+    "selectedPlugin": "grid"
+}

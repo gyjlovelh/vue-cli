@@ -1,0 +1,8 @@
+<template>{{set table = $data}}
+    <!-- table -->
+    <el-table :data="dataSouce" border stripe>
+        {{each table.columns}}{{set item = $value}}
+        <!-- {{item.label}}: {{item.prop}} -->
+        {{include './normal-column.html.art' item}}{{/each}}
+    </el-table>
+</template>
