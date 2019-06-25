@@ -5,6 +5,7 @@ let {use} = require('./use');
 let {serve} = require('./serve');
 let {publish} = require('./publish');
 let {ls} = require('./ls');
+let {install} = require('./install');
 
 module.exports = {
     doInit: init,
@@ -14,5 +15,6 @@ module.exports = {
     doServe: serve,
     doPublish: publish,
     doLs: ls,
-    doRemove: remove
+    doRemove: remove,
+    doInstall: install
 };

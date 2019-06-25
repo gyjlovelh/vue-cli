@@ -19,7 +19,9 @@ commander.command('add')
 
 commander.command('remove <name>')
     .description('remove')
-    .action(actions.doRemove)
+    .action(actions.doRemove);
+
+commander.command('install <name>').description('安装依赖').action(actions.doInstall);
 
 commander.command('ls')
     .description('ls')
