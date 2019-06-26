@@ -49,9 +49,9 @@ let handler = {
             // 1.生成工作目录配置文件
             const appJson = fs.readJsonSync(path.join(inputs.sourceCodePath, './application.json'));
             appJson.sourceCodePath = inputs.sourceCodePath;
-            appJson.componentPkgName = '@waf-component';
-            appJson.modulePkgName = '@waf-module';
-            appJson.servicePkgName = '@waf-service';
+            appJson.componentPkgName = `@${appJson.prefix}-component`;
+            appJson.modulePkgName = `@${appJson.prefix}-module`;
+            appJson.servicePkgName = `@${appJson.prefix}-service`;
 
             fs.outputJSONSync(path.join(__dirname, '../config/application.json'), appJson, {spaces: 4})
             logger.info(identifier, '同步application.json');
@@ -75,6 +75,22 @@ let handler = {
             });
             fs.ensureDirSync(path.join(appJson.sourceCodePath, 'module'));
             fs.ensureDirSync(path.join(appJson.sourceCodePath, 'service'));
+
+            // 3.初始化运行环境
+            components.forEach(item => {
+                fs.ensureDirSync(`${appJson.runtimeDir}`);
+                let serv = cp.spawn(`vue`, ['create', '--default', '--force', '--registry', 'https://registry.npm.taobao.org', '--no-git', item], {cwd: `${appJson.runtimeDir}`});
+                serv.stdout.on('data', data => logger.info(identifier, data));
+                serv.stderr.on('data', data => logger.error(identifier, data));
+                serv.on('error', err => {
+                    throw new Error(err)
+                });
+                serv.on('close', () => {
+                    cp.execSync('npm install node-sass sass-loader --save-dev', {cwd: `${appJson.runtimeDir}/${item}`})
+                    logger.info(identifier, '安装node-sass sass-loader')
+                });
+
+            });
 
 
             function initApplicationConfig(params) {

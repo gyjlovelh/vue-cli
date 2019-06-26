@@ -22,6 +22,20 @@ let handler = {
 
     saveAppConf(conf) {
         fs.outputJSONSync(path.join(__dirname, '../config/application.json'), conf, {spaces: 4});
+    },
+
+    getPluginType(name) {
+        let appConf = this.getAppConf();
+
+        if (appConf.component.includes(name)) {
+            return 'component';
+        } else if (appConf.module.includes(name)) {
+            return 'module';
+        } else if (appConf.service.includes(name)) {
+            return 'service';
+        } else {
+            throw new Error('不存在此插件：' + name);
+        }
     }
 }
 

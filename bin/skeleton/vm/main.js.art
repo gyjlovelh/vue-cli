@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
-import {{module}} from '@waf-component/{{name}}'
+import {{module.componentName}} from '{{module.pkg}}'
 
 Vue.config.productionTip = false
-Vue.use({{module}})
+Vue.use({{module.componentName}})
 
 new Vue({
   render: h => h(App),

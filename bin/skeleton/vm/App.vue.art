@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <p>this is {{name}}</p>
+    <p>this is {{module.pkg}}</p>
 
     {{each demos}}{{set item = $value}}
         <button @click="onClick({{item.name}})">{{item.name}}</button>

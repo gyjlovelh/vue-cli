@@ -56,6 +56,7 @@ let handler = {
     resolveMain(conf, dest) {
         let main = art(path.join(__dirname, './vm/main.js.art'), conf);
         fs.outputFileSync(`${dest}/main.js`, main);
+        logger.info(identifier, '复制文件')
     }
 }
 

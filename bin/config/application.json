@@ -5,7 +5,8 @@
     "runtimeDir": "/Users/guanyj/workspace/rt",
     "distDir": "",
     "component": [
-        "grid"
+        "grid",
+        "promise"
     ],
     "module": [
         "nav"
