@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
-import {{module.componentName}} from '{{module.pkg}}'
+{{each module.dependencies}}{{set item = $value}}
+import {{item.name}} from '{{item.pkg}}'{{/each}}
 
+{{each module.dependencies}}{{set item = $value}}
+Vue.use({{item.name}}){{/each}}
 Vue.config.productionTip = false
-Vue.use({{module.componentName}})
 
 new Vue({
   render: h => h(App),

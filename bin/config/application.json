@@ -6,7 +6,8 @@
     "distDir": "",
     "component": [
         "grid",
-        "promise"
+        "promise",
+        "promise-grid"
     ],
     "module": [
         "nav"
@@ -18,5 +19,5 @@
     "componentPkgName": "@waf-component",
     "modulePkgName": "@waf-module",
     "servicePkgName": "@waf-service",
-    "selectedPlugin": "grid"
+    "selectedPlugin": "promise-grid"
 }

@@ -4,16 +4,25 @@ const func = require('../util/func');
 const ske = require('../skeleton');
 const path = require('path');
 const conf = require('../util/conf');
+const cp = require('child_process');
 
 const identifier = '[add]';
 
 let handler = {
 
+    /**
+     * 新增模块
+     * @desc 在源码目录中追加骨架目录
+     * 同时在运行环境新增
+     * @param args
+     */
     add: function (args) {
+        let appConf = conf.getAppConf();
+        let name;
         if (args.component) {
             logger.info(identifier, '新增组件:' + args.component);
-            let appConf = conf.getAppConf();
-            let name = args.component;
+
+            name = args.component;
 
             let plugins = [...appConf.component, ...appConf.module, ...appConf.service];
             if (plugins.includes(name)) {
@@ -38,7 +47,21 @@ let handler = {
             logger.info(identifier, '新增服务:' + args.service)
         } else {
             logger.error(identifier, '请指定新增插件类型');
+            return;
         }
+
+        fs.ensureDirSync(`${appConf.runtimeDir}`);
+        // 不会覆盖已存在工程
+        let serv = cp.spawn(`vue`, ['create', '--default', '--registry', 'https://registry.npm.taobao.org', '--no-git', name], {cwd: `${appConf.runtimeDir}`});
+        serv.stdout.on('data', data => logger.info(identifier, data));
+        serv.stderr.on('data', data => logger.error(identifier, data));
+        serv.on('error', err => {
+            throw new Error(err)
+        });
+        serv.on('close', () => {
+            cp.execSync('npm install node-sass sass-loader --save-dev', {cwd: `${appConf.runtimeDir}/${name}`})
+            logger.info(identifier, '安装node-sass sass-loader')
+        });
     },
 
     remove: function(name) {

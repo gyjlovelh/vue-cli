@@ -79,7 +79,8 @@ let handler = {
             // 3.初始化运行环境
             components.forEach(item => {
                 fs.ensureDirSync(`${appJson.runtimeDir}`);
-                let serv = cp.spawn(`vue`, ['create', '--default', '--force', '--registry', 'https://registry.npm.taobao.org', '--no-git', item], {cwd: `${appJson.runtimeDir}`});
+                // 不会覆盖已存在工程
+                let serv = cp.spawn(`vue`, ['create', '--default', '--registry', 'https://registry.npm.taobao.org', '--no-git', item], {cwd: `${appJson.runtimeDir}`});
                 serv.stdout.on('data', data => logger.info(identifier, data));
                 serv.stderr.on('data', data => logger.error(identifier, data));
                 serv.on('error', err => {
