@@ -49,9 +49,6 @@ let handler = {
 
             function genMain(name) {
                 let dependencies = conf.getCurrentPluginDependency();
-
-                logger.error(identifier, dependencies);
-
                 ske.resolveMain({
                     module: {
                         dependencies
@@ -62,7 +59,7 @@ let handler = {
             function fileChangeListener() {
                 const chokidar = require('chokidar');
 
-                let watch$ = chokidar.watch(`${appConf.sourceCodePath}/component/${appConf.selectedPlugin}`, {
+                let watch$ = chokidar.watch(`${appConf.sourceCodePath}/${conf.getCurrentPluginType()}/${appConf.selectedPlugin}`, {
                     ignored: /(^|[\/\\])\../,
                     persistent: true
                 });
@@ -70,9 +67,7 @@ let handler = {
                 watch$.on('change', path => {
                     path = path.replace(/\\/g, '/');
                     let dest = path.split(`/${appConf.selectedPlugin}/`)[1];
-                    let dest_path = `${appConf.runtimeDir}/${appConf.selectedPlugin}/node_modules/@waf-component/${appConf.selectedPlugin}/${dest}`;
-
-                    console.log(path, dest, dest_path);
+                    let dest_path = `${appConf.runtimeDir}/${appConf.selectedPlugin}/node_modules/${conf.getCurrentPluginPkgName()}/${dest}`;
 
                     fs.copySync(path, dest_path, {
                         overwrite: true

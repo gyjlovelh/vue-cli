@@ -3,27 +3,46 @@ const path = require('path');
 const func = require('./func');
 
 let handler = {
-
+    /**
+     * 查询app配置
+     * @returns {any}
+     */
     getAppConf() {
         return fs.readJSONSync(path.join(__dirname, '../config/application.json'));
     },
 
+    /**
+     * 查询当前插件名称
+     * @returns {*}
+     */
     getCurrentPlugin() {
         let appConf = this.getAppConf();
 
         return appConf.selectedPlugin;
     },
 
+    /**
+     * 查询当前插件类型
+     * @returns {*|string}
+     */
     getCurrentPluginType() {
         return this.getPluginType(this.getCurrentPlugin());
     },
 
+    /**
+     * 查询当前插件包名
+     * @returns {string}
+     */
     getCurrentPluginPkgName() {
         let plugin = this.getCurrentPlugin();
 
         return `${this.getPluginPkgPrefix(plugin)}/${plugin}`;
     },
 
+    /**
+     * 查询当前插件的内部依赖
+     * @returns {Array}
+     */
     getCurrentPluginDependency() {
         let appConf = this.getAppConf();
 
@@ -60,22 +79,49 @@ let handler = {
         return dependencies;
     },
 
+    /**
+     * 生成组件缺省信息
+     * @param name
+     * @returns {{name: *, componentName: *, version: string, author: string, prefix: *|string, componentPkgName: *|string}}
+     */
     getComponentDefaultConf(name) {
         let appConf = this.getAppConf();
         return {
             name: name,
             componentName: func.anyToCamel(`${name}_component`),
             version: '1.0.0',
-            author: 'guanyj',
+            author: '',
             prefix: appConf.prefix,
             componentPkgName: appConf.componentPkgName
         }
     },
 
+    getServiceDefaultConf(name) {
+        let appConf = this.getAppConf();
+        return {
+            name: name,
+            serviceName: func.anyToCamel(`${name}_service`),
+            version: '1.0.0',
+            author: '',
+            prefix: appConf.prefix,
+            callName: `$${appConf.prefix}${func.anyToCamel(name)}`,
+            servicePkgName: appConf.servicePkgName
+        }
+    },
+
+    /**
+     * 更新app信息
+     * @param conf
+     */
     saveAppConf(conf) {
         fs.outputJSONSync(path.join(__dirname, '../config/application.json'), conf, {spaces: 4});
     },
 
+    /**
+     * 查询插件类型
+     * @param name
+     * @returns {string}
+     */
     getPluginType(name) {
         let appConf = this.getAppConf();
 
@@ -90,6 +136,11 @@ let handler = {
         }
     },
 
+    /**
+     * 查询插件包名前缀
+     * @param name
+     * @returns {*}
+     */
     getPluginPkgPrefix(name) {
         let appConf = this.getAppConf();
         let pluginType = this.getPluginType(name);

@@ -1,0 +1,14 @@
+import {{module.serviceName}} from './src/{{module.name}}.service.js';
+
+const services = {
+    {{module.name}}: {{module.serviceName}}
+};
+
+const install = function (Vue) {
+    // 注册全局组件
+    Object.keys(services).forEach(key => {
+        Vue.prototype.{{module.callName}} = {{module.serviceName}};
+    });
+};
+
+export default install;

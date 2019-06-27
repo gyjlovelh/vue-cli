@@ -7,13 +7,6 @@ const identifier = '[render]';
 
 let handler = {
 
-    resolve(conf, dest) {
-        if (conf.table) {
-            let html = art(path.join(__dirname, './page/table/table.html.art'), conf.table);
-            fs.outputFileSync(`${dest}/table.vue`, html);
-        }
-    },
-
     /**
      * 遍历模板目录生成模板文件
      *
@@ -36,6 +29,7 @@ let handler = {
 
                 let targetName = filename.replace(/frame/g, module.name).replace(/\.art$/g, '');
                 let targetPath = `${dest}/${targetName}`;
+                // 已存在该插件时，默认跳过
                 if (!fs.existsSync(targetPath) || options.overwrite) {
                     fs.outputFileSync(targetPath, template);
                     let str = options.overwrite ? '覆盖文件' : '创建文件';

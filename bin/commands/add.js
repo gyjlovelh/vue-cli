@@ -18,18 +18,18 @@ let handler = {
      */
     add: function (args) {
         let appConf = conf.getAppConf();
+        // 插件名称
         let name;
+        let plugins = [...appConf.component, ...appConf.module, ...appConf.service];
         if (args.component) {
-            logger.info(identifier, '新增组件:' + args.component);
-
             name = args.component;
+            logger.info(identifier, '新增组件:' + name);
+            // 插件集合
 
-            let plugins = [...appConf.component, ...appConf.module, ...appConf.service];
             if (plugins.includes(name)) {
-                logger.error(identifier, `该模块:${name} 已经存在于插件库中`);
+                logger.error(identifier, `该插件:${name} 已经存在于插件库中`);
                 return;
             }
-
             ske.resolveFramework(
                 path.join(__dirname, '../skeleton/component'),
                 path.join(`${appConf.sourceCodePath}/component`, name),
@@ -44,7 +44,22 @@ let handler = {
             logger.info(identifier, '新增模块:' + args.module)
 
         } else if (args.service) {
-            logger.info(identifier, '新增服务:' + args.service)
+            name = args.service;
+            logger.info(identifier, '新增服务:' + name);
+            if (plugins.includes(name)) {
+                logger.error(identifier, `该插件:${name} 已经存在于插件库中`);
+                return;
+            }
+            ske.resolveFramework(
+                path.join(__dirname, '../skeleton/service'),
+                path.join(`${appConf.sourceCodePath}/service`, name),
+                conf.getServiceDefaultConf(name)
+            );
+            appConf.service.push(name);
+            let app = fs.readJSONSync(path.join(appConf.sourceCodePath, 'application.json'));
+            app.service.push(name);
+            fs.outputJSONSync(path.join(appConf.sourceCodePath, 'application.json'), app, {spaces: 4});
+            conf.saveAppConf(appConf);
         } else {
             logger.error(identifier, '请指定新增插件类型');
             return;

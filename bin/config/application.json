@@ -2,7 +2,7 @@
     "name": "waf-application-framework",
     "prefix": "waf",
     "version": "1.0.0",
-    "runtimeDir": "/Users/guanyj/workspace/rt",
+    "runtimeDir": "/Users/guanyj/workspace/tmp",
     "distDir": "",
     "component": [
         "grid",
@@ -13,11 +13,11 @@
         "nav"
     ],
     "service": [
-        "context"
+        "context",
+        "event"
     ],
-    "sourceCodePath": "/Users/guanyj/workspace/application",
+    "sourceCodePath": "/Users/guanyj/Documents/jx/orchid.common.pc",
     "componentPkgName": "@waf-component",
     "modulePkgName": "@waf-module",
-    "servicePkgName": "@waf-service",
-    "selectedPlugin": "promise-grid"
+    "servicePkgName": "@waf-service"
 }

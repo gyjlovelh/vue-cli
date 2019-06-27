@@ -18,12 +18,12 @@ let handler = {
             // 更新源代码依赖
             let pkgDir = `${appConf.sourceCodePath}/${conf.getPluginType(appConf.selectedPlugin)}/${appConf.selectedPlugin}/package.json`;
             let pkg = fs.readJSONSync(pkgDir);
-            pkg.dependencies[name] = `^${version}`.replace(/\n/g, '');
+            pkg.dependencies[name] = `^${version}`.replace(/\r|\n|\s/g, '');
             fs.outputJSONSync(pkgDir, pkg, {spaces: 4});
             logger.info(identifier, `安装依赖${name}@${version}成功`)
 
         } catch (err) {
-
+            logger.error(identifier, err);
         }
     }
 };

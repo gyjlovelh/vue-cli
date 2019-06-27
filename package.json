@@ -1,10 +1,10 @@
 {
-  "name": "@jx-common/cli",
+  "name": "@jx-common/vue-cli",
   "version": "1.0.0",
   "description": "vue cli",
-  "main": "/bin/jx.js",
+  "main": "/bin/waf.js",
   "bin": {
-    "jx": "./bin/jx.js"
+    "waf": "./bin/waf.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

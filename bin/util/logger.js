@@ -2,10 +2,10 @@
 const chalk = require('chalk');
 
 const prefix = chalk.magenta.bold;
-const c_info = chalk.hex('#67dc2e');
-const c_tip = chalk.hex('#1890ff');
-const c_warn = chalk.hex('#faad14');
-const c_error = chalk.hex('#f52a35');
+const c_info = chalk.hex('#409eff');
+const c_tip = chalk.hex('#67c23a');
+const c_warn = chalk.hex('#e6a23c');
+const c_error = chalk.hex('#f56c6c');
 
 let handler = {
     info: function(identifer, msg) {
